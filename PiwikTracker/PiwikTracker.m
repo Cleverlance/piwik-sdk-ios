@@ -176,7 +176,7 @@ static NSString * const PiwikURLCampaignKeyword = @"pk_kwd";
 @property (nonatomic) NSUInteger totalNumberOfVisits;
 
 @property (nonatomic, readonly) NSTimeInterval firstVisitTimestamp;
-@property (nonatomic, readonly) BOOL fired;
+@property (nonatomic, readonly) BOOL firedKey;
 @property (nonatomic) NSTimeInterval previousVisitTimestamp;
 @property (nonatomic) NSTimeInterval currentVisitTimestamp;
 @property (nonatomic, strong) NSDate *appDidEnterBackgroundDate;
@@ -212,7 +212,7 @@ NSString* UserDefaultKeyWithSiteID(NSString* siteID, NSString *key);
 @synthesize previousVisitTimestamp = _previousVisitTimestamp;
 @synthesize currentVisitTimestamp = _currentVisitTimestamp;
 @synthesize clientID = _clientID;
-@synthesize fired = _fired;
+@synthesize firedKey = _firedKey;
 
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
@@ -486,9 +486,11 @@ static PiwikTracker *_sharedInstance;
 - (BOOL)trackNewAppDownload {
     NSDictionary *infoDictionary = [[NSBundle mainBundle]infoDictionary];
     [self trackNewAppDownload:infoDictionary[(NSString*)kCFBundleVersionKey]];
+    return true;
 }
 
 - (BOOL)trackNewAppDownload:(NSString*)version {
+    NSLog(@"IN");
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     
     NSDictionary *infoDictionary = [[NSBundle mainBundle]infoDictionary];
@@ -497,19 +499,27 @@ static PiwikTracker *_sharedInstance;
     if (version == nil){
         version = self.appVersion;
     }
+    else{
+        self.appVersion = version;
+    }
     NSMutableString *fired = [NSMutableString string];
+    NSLog(@"BEFORE FIRED IF");
     [fired appendString:@"http://downloaded:"];
     [fired appendString:name];
     [fired appendString:@":"];
     [fired appendString:version];
-    if ([self fired] == nil || ![self fired]){
+    NSLog(@"BEFORE IF");
+    if ([self firedKey] == FALSE){
+        NSLog(@"BEFORE params");
         params[PiwikParameterEventCategory] = @"Application";
         params[PiwikParameterEventAction] = @"downloaded";
         params[PiwikParameterEventName] = @"application/downloaded";
         params[PiwikParameterURL] = @"http://application/downloaded";
+        NSLog(@"BEFORE Decl");
         NSString *build = infoDictionary[(NSString*)kCFBundleVersionKey];
         NSString *md5;
         NSMutableString *md5_string = [NSMutableString string];
+        NSLog(@"BEFORE FIRED");
         [fired appendString:@":"];
         [md5_string appendString:fired];
         [fired appendString:self.deviceName];
@@ -517,6 +527,8 @@ static PiwikTracker *_sharedInstance;
         NSString *bundlePath = [[NSBundle mainBundle] resourcePath];
         md5 = [PiwikTracker md5HashOfPath:bundlePath];
         [md5_string appendString:md5];
+        NSLog(@"HERE");
+//        NSLog(md5_string);
         params[PiwikParameterDownload] = md5_string;
     }
     return [self queueEvent:params];
@@ -826,6 +838,11 @@ static PiwikTracker *_sharedInstance;
     return YES;
 }
 
+- (BOOL)setUserId:(NSString*)userId{
+    NSParameterAssert(userId > 0);
+    self.userID = userId;
+    return YES;
+}
 
 - (BOOL)queueEvent:(NSDictionary*)parameters {
   
@@ -1257,7 +1274,7 @@ static PiwikTracker *_sharedInstance;
   return _clientID;
 }
 
-- (BOOL)fired {
+- (BOOL)firedKey {
     NSString *name = self.appName;
     NSString *version = self.appVersion;
     NSMutableString *fired_str = [NSMutableString string];
@@ -1267,12 +1284,20 @@ static PiwikTracker *_sharedInstance;
     [fired_str appendString:version];
     // Get from user defaults
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    _fired = [userDefaults stringForKey:UserDefaultKeyWithSiteID(self.siteID, fired_str)];
-    if (nil == _fired) {
+    NSLog(fired_str);
+    NSLog(@"FIRED STR");
+    _firedKey = [userDefaults stringForKey:UserDefaultKeyWithSiteID(self.siteID, fired_str)];
+    if (_firedKey)
+        NSLog(@"YES");
+    else
+        NSLog(@"NO");
+    if (nil == _firedKey) {
         [userDefaults setValue:@"set" forKey:UserDefaultKeyWithSiteID(self.siteID, fired_str)];
         [userDefaults synchronize];
+        NSLog(@"RETURN FALSE");
         return FALSE;
     }
+    NSLog(@"RETURN TRUE");
     return TRUE;
 }
 
