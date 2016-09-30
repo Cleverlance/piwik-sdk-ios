@@ -35,7 +35,10 @@
 /* Begin PBXBuildFile section */
 		0E172B96F586F42885484C49 /* libPods-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AFEF98FA72F773DD178FA44C /* libPods-osx.a */; };
 		1D2707CC1CDC06F100B88AB1 /* CustomDimensionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D2707CB1CDC06F100B88AB1 /* CustomDimensionsViewController.m */; };
-		AEF1C9DF1CE326070049FC3E /* PiwikTracker-iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = AEF1C9DE1CE326070049FC3E /* PiwikTracker-iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1D4515231CE40F75007922CB /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD2F7DAF17B9561C00E240FC /* CoreLocation.framework */; };
+		1D4515241CE40F83007922CB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD1EA93D17B0DB7500F63E14 /* CoreGraphics.framework */; };
+		66BE96CD1D9E83E40072FD73 /* PiwikDispatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = CDC7625519B0F9DA00EED980 /* PiwikDispatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66BE96CF1D9E846E0072FD73 /* PiwikNSURLSessionDispatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = CD1EEB2019B4A208009BAA7A /* PiwikNSURLSessionDispatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AEF1C9E61CE327530049FC3E /* PiwikTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = CD10FAEB17B037B50012BE50 /* PiwikTracker.m */; };
 		AEF1C9E71CE327530049FC3E /* PiwikDebugDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1EEB1F19B4A208009BAA7A /* PiwikDebugDispatcher.m */; };
 		AEF1C9E81CE327530049FC3E /* PiwikNSURLSessionDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1EEB2119B4A208009BAA7A /* PiwikNSURLSessionDispatcher.m */; };
@@ -50,8 +53,6 @@
 		AEF1C9F11CE327670049FC3E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD10FABF17B0378D0012BE50 /* Foundation.framework */; };
 		AEF1C9F21CE327670049FC3E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD1EA93417B0DA4400F63E14 /* UIKit.framework */; };
 		AEF1CA111CE334610049FC3E /* PiwikTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = CD10FAEA17B037B50012BE50 /* PiwikTracker.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1D4515231CE40F75007922CB /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD2F7DAF17B9561C00E240FC /* CoreLocation.framework */; };
-		1D4515241CE40F83007922CB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD1EA93D17B0DB7500F63E14 /* CoreGraphics.framework */; };
 		C027567BEC62566E6F824230 /* libPods-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BB58213275F072D13140292 /* libPods-ios.a */; };
 		CD03D99417E8F8CB00D7723F /* Screen2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD03D99317E8F8CB00D7723F /* Screen2ViewController.m */; };
 		CD03D99717E8FDFD00D7723F /* OptOutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD03D99617E8FDFC00D7723F /* OptOutViewController.m */; };
@@ -619,8 +620,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AEF1C9DF1CE326070049FC3E /* PiwikTracker-iOS.h in Headers */,
+				66BE96CD1D9E83E40072FD73 /* PiwikDispatcher.h in Headers */,
 				AEF1CA111CE334610049FC3E /* PiwikTracker.h in Headers */,
+				66BE96CF1D9E846E0072FD73 /* PiwikNSURLSessionDispatcher.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

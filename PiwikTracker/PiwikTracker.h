@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PiwikDispatcher.h"
+#import "PiwikNSURLSessionDispatcher.h"
 
 @class PiwikTransaction;
-@protocol PiwikDispatcher;
 
 /**
  

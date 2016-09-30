@@ -18,5 +18,7 @@
 @property (nonatomic, strong) NSString *userAgent;
 
 - (instancetype)initWithPiwikURL:(NSURL*)piwikURL;
+- (void)sendRequest:(NSURLRequest*)request success:(void (^)())successBlock failure:(void (^)(BOOL shouldContinue))failureBlock;
+- (BOOL)shouldAbortdispatchForNetworkError:(NSError*)error;
 
 @end
